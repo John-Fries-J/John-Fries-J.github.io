@@ -7,21 +7,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function typeEffect() {
         const currentPhrase = phrases[currentPhraseIndex];
-        if (isDeleting) {
-            dynamicText.textContent = currentPhrase.substring(0, currentCharacterIndex--);
+        if (!isDeleting) {
+
+            dynamicText.textContent = currentPhrase.substring(0, currentCharacterIndex + 1);
+            currentCharacterIndex++;
+            if (currentCharacterIndex === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 1000); 
+                return;
+            }
         } else {
-            dynamicText.textContent = currentPhrase.substring(0, currentCharacterIndex++);
+            dynamicText.textContent = currentPhrase.substring(0, currentCharacterIndex - 1);
+            currentCharacterIndex--;
+            if (currentCharacterIndex === 0) {
+                isDeleting = false;
+                currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+            }
         }
-
-        if (!isDeleting && currentCharacterIndex === currentPhrase.length) {
-            isDeleting = true;
-            setTimeout(typeEffect, 1500); 
-        } else if (isDeleting && currentCharacterIndex === 0) {
-            isDeleting = false;
-            currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-        }
-
-        setTimeout(typeEffect, isDeleting ? 100 : 150); 
+        setTimeout(typeEffect, isDeleting ? 100 : 150);
     }
 
     typeEffect();
