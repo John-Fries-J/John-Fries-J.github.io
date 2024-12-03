@@ -10,12 +10,31 @@ header {
     text-align: center;
     padding: 2rem 0;
     background: rgba(255, 255, 255, 0.1);
-    animation: fadeIn 2s ease;
 }
 
 .title {
     font-size: 2.5rem;
     color: #e1c4f8;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid white;
+    max-width: 100%;
+}
+
+.blinking-cursor {
+    font-weight: bold;
+    font-size: 2.5rem;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
 }
 
 main {
@@ -28,6 +47,7 @@ section {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1s ease;
 }
 
 h2 {
@@ -43,7 +63,6 @@ ul {
 li {
     margin: 0.5rem 0;
     font-size: 1.1rem;
-    animation: slideIn 1s ease;
 }
 
 .service h3 {
@@ -56,22 +75,13 @@ li {
     font-size: 1rem;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInUp {
     from {
         opacity: 0;
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(-20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
+        transform: translateY(0);
     }
 }
